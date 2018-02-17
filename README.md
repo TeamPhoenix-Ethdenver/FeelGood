@@ -1,8 +1,9 @@
-# FeelGood 
+ # FeelGood
+
  (Built with love by @Team Phoenix at EthDenver hackathon 2018)
  
  
- A blood donation system which provides end to end traceability through web and mobile 
+![#1589F0](https://placehold.it/15/1589F0/000000?text=+)  A blood donation system which provides end to end traceability through web and mobile ![#1589F0](https://placehold.it/15/1589F0/000000?text=+)
  
  :hospital:
 
