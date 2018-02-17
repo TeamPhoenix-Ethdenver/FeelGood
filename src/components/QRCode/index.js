@@ -12,12 +12,20 @@ const QRCard = props => {
     { title: 'Age', description: props.age },
     { title: 'Sex', description: props.sex },
     { title: 'Blood Group', description: <Tag>{props.bloodGroup}</Tag> },
-    { title: 'Donate Time', description: moment(props.donationTime).format('MMM/DD/YYYY HH:mm') },
-    { title: 'Is Verified', description: props.isVerified },
-    { title: 'Test Center', description: props.verifierAddress }
+    { title: 'Donate Time', description: moment(props.donationTime).format('MMM/DD/YYYY HH:mm') }
   ]
-  if (props.hospitalAddress) {
-    data.push({ title: 'Hospital', description: props.hospitalAddress })
+  if (!window.parseInt(props.testCenter)) {
+    data.push({ title: 'Tested', description: <Tag>No</Tag> })
+  } else {
+    data.push({ title: 'Tested', description: <Tag>Yes</Tag> })
+    data.push({ title: 'Accepted', description: <Tag>{props.isQualified ? 'Yes' : 'No'}</Tag> })
+    data.push({ title: 'Test Center', description: props.testCenter })
+    if (!window.parseInt(props.healthCenter)) {
+      data.push({ title: 'Consumed', description: <Tag>No</Tag> })
+    } else {
+      data.push({ title: 'Consumed', description: <Tag>Yes</Tag> })
+      data.push({ title: 'Health Center', description: props.healthCenter })
+    }
   }
 
   return (
@@ -56,9 +64,9 @@ export default class QRCode extends Component {
           sex: args[3],
           donationTime: moment(args[4].toNumber()),
           bloodGroup: args[5],
-          isVerified: args[6],
-          verifierAddress: args[7],
-          hospitalAddress: args[8]
+          isQualified: args[6],
+          testCenter: args[7],
+          healthCenter: args[8]
         }
       })
     })

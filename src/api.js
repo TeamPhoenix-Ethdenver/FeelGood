@@ -28,6 +28,24 @@ export const onStage1Event = callback => FeelGood.deployed()
     })
   )
 
+export const onStage2Event = callback => FeelGood.deployed()
+  .then(i => i.IsTestedEvent({}, { fromBlock: 0, toBlock: 'latest' })
+    .watch((err, ev) => {
+      if (!err) {
+        callback(ev.args)
+      }
+    })
+  )
+
+export const onStage3Event = callback => FeelGood.deployed()
+  .then(i => i.IsConsumedEvent({}, { fromBlock: 0, toBlock: 'latest' })
+    .watch((err, ev) => {
+      if (!err) {
+        callback(ev.args)
+      }
+    })
+  )
+
 export const newStage1 = (nameOfDonor, age, sex, bloodGroup, donationTime) => web3.eth.getCoinbase()
   .then(from => FeelGood.defaults({ from }))
   .then(() => FeelGood.deployed())
@@ -35,3 +53,13 @@ export const newStage1 = (nameOfDonor, age, sex, bloodGroup, donationTime) => we
 
 export const hasRole = role => FeelGood.deployed()
   .then(i => i.hasRole(sessionStorage.getItem('address'), role))
+
+export const testReject = donorID => web3.eth.getCoinbase()
+  .then(from => FeelGood.defaults({ from }))
+  .then(() => FeelGood.deployed())
+  .then(i => i.isTested(donorID, false))
+
+export const testApprove = donorID => web3.eth.getCoinbase()
+  .then(from => FeelGood.defaults({ from }))
+  .then(() => FeelGood.deployed())
+  .then(i => i.isTested(donorID, true))

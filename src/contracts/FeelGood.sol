@@ -12,7 +12,7 @@ contract FeelGood is RBAC {
         string bloodGroup;
         bool isQualified;
         address testCenter;
-        address hospital;
+        address healthCenter;
    }
     
     mapping (uint => Donor) public donors;
@@ -28,7 +28,7 @@ contract FeelGood is RBAC {
         string bloodGroup, 
         bool isQualified,
         address testCenter, 
-        address hospital
+        address healthCenter
     );
     
     function setDonor (
@@ -39,11 +39,9 @@ contract FeelGood is RBAC {
         uint _donationTime
     ) public onlyRole("DonationCenter")
     {
-        //Donor  memory myDonor = Donor({ donationCenter:msg.sender, nameOfDonor:_nameOfDonor, donorID:_donorID, nationality:_nationality,
-        //heightInCm:_heightInCm,sex:_sex,weight:_weight, date:now, bloodGroup:_bloodGroup, isQualified:false, testCenter:"None"   });
         require(_age >= 18);
 
-        donorID = donorID+1;
+        donorID++;
 
         var myDonor = donors[donorID];
         myDonor.donationCenter = msg.sender;
@@ -54,10 +52,10 @@ contract FeelGood is RBAC {
         myDonor.bloodGroup = _bloodGroup;
         myDonor.isQualified = false;
         myDonor.testCenter = 0;
-        myDonor.hospital = 0;
+        myDonor.healthCenter = 0;
 
         // set all values and put in event
-        DonorCreatedEvent(donorID, msg.sender, _nameOfDonor, _age, _sex, _donationTime, _bloodGroup, myDonor.isQualified, myDonor.testCenter, myDonor.hospital);
+        DonorCreatedEvent(donorID, msg.sender, _nameOfDonor, _age, _sex, _donationTime, _bloodGroup, myDonor.isQualified, myDonor.testCenter, myDonor.healthCenter);
     }
 
     event IsTestedEvent(
@@ -70,7 +68,7 @@ contract FeelGood is RBAC {
         string bloodGroup, 
         bool isQualified,
         address testCenter, 
-        address hospital
+        address healthCenter
     );
 
 
@@ -83,7 +81,7 @@ contract FeelGood is RBAC {
         // require(not expired) TODO
         donors[_donorID].isQualified = _isQualified;
         donors[_donorID].testCenter = msg.sender;
-        IsTestedEvent(_donorID, donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].hospital);
+        IsTestedEvent(_donorID, donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].healthCenter);
     }
 
     event IsConsumedEvent(
@@ -95,11 +93,11 @@ contract FeelGood is RBAC {
         string bloodGroup,  
         bool isQualified, 
         address testCenter, 
-        address hospital
+        address healthCenter
     );
 
-    function isConsumed(uint _donorID) public onlyRole("Hospital") {
-        donors[_donorID].hospital = msg.sender;
-        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].hospital);
+    function isConsumed(uint _donorID) public onlyRole("HealthCenter") {
+        donors[_donorID].healthCenter = msg.sender;
+        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].healthCenter);
     }
 }
