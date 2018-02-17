@@ -13,7 +13,7 @@ Blockchain-based blood donation system: A unique way to trace blood and add acco
 - Tracing and signing a pint of blood by the testing center
 
 (*unique feature- The testing center can digitally sign by using a basic QR code readable camera phone and verify the quality of blood received*)
-- Empowering the hospital (and therefore, the consumer of the blood) to track the history of blood and utilize it
+- Empowering the health center (and therefore, the consumer of the blood) to track the history of blood and utilize it
 
 ### Motivation:
 
@@ -31,4 +31,15 @@ Every 2 seconds, someone in the US needs blood. Even though, we **DONATE** blood
 
 -This number is miniscule compared to such cases happening in developing countries like India. [ [Science Alert:2000 cases in India](https://www.sciencealert.com/blood-transfusions-have-given-hiv-to-more-than-2-000-people-in-india) ]
 
-#### Most importantly, we are developing a new diverse industry by facilitating blood donation in an accountable and transparent way from developing countries in rare medical conditions such as [ [Haiti gets blood from Italy, South Africa and USA: RedCross](http://www.redcross.org/news/article/Red-Cross-Working-across-Borders-to-Ensure-Haitis-Blood-Supply) ]
+#### Most importantly, we are developing a new diverse industry by facilitating blood donation in an accountable and transparent way from developing countries in rare medical conditions such as [ [Haiti gets blood from Italy, South Africa and USA: RedCross](http://www.redcross.org/news/article/Red-Cross-Working-across-Borders-to-Ensure-Haitis-Blood-Supply) ] [ [Blood test/supply internationally between Geneva and Paris](https://www.theatlantic.com/health/archive/2014/10/the-most-precious-blood-on-earth/381911/) ]
+
+### Technologies:
+Solidity, React-redux, uPort API, react
+
+### USP of our project/novelty:
+
+- We are providing transparency and tracebility in an inexpensive way. The Donation Center, Testing Center and Health Center need a uPort application in their smart phones to digitally sign a contract/attest quality of blood.
+
+- Moreover, we have generated QR code labels for bottles/pints of blood which can be just read by a simple camera and taken directly to authentication page. Note: No web-app will be required if the testing and health center go with this route. This kind of a mechanism hasn't been implemented before. 
+
+
