@@ -1,8 +1,8 @@
 pragma solidity ^0.4.18;
 
-contract FeelGood {
-    uint public donorID = 0;
-    
+import '../../node_modules/zeppelin-solidity/contracts/ownership/rbac/RBAC.sol';
+
+contract FeelGood is RBAC {
     struct Donor {
         address donationCenter;
         string  nameOfDonor;
@@ -10,13 +10,14 @@ contract FeelGood {
         string sex;
         uint donationTime;
         string bloodGroup;
-        bool isVerified;
-        address verifierAddress;
-        address hospitalAddress;
+        bool isQualified;
+        address testCenter;
+        address hospital;
    }
     
     mapping (uint => Donor) public donors;
-    
+    uint public donorID = 0;
+
     event DonorCreatedEvent(
         uint donorID,
         address donationCenter, 
@@ -25,9 +26,9 @@ contract FeelGood {
         string sex, 
         uint donationTime, 
         string bloodGroup, 
-        bool isVerified,
-        address verifierAddress, 
-        address hospitalAddress
+        bool isQualified,
+        address testCenter, 
+        address hospital
     );
     
     function setDonor (
@@ -36,10 +37,10 @@ contract FeelGood {
         string _sex,
         string _bloodGroup,
         uint _donationTime
-    ) public 
+    ) public onlyRole("DonationCenter")
     {
         //Donor  memory myDonor = Donor({ donationCenter:msg.sender, nameOfDonor:_nameOfDonor, donorID:_donorID, nationality:_nationality,
-        //heightInCm:_heightInCm,sex:_sex,weight:_weight, date:now, bloodGroup:_bloodGroup, isVerified:false, verifierAddress:"None"   });
+        //heightInCm:_heightInCm,sex:_sex,weight:_weight, date:now, bloodGroup:_bloodGroup, isQualified:false, testCenter:"None"   });
         require(_age >= 18);
 
         donorID = donorID+1;
@@ -51,31 +52,38 @@ contract FeelGood {
         myDonor.sex = _sex;
         myDonor.donationTime = _donationTime;
         myDonor.bloodGroup = _bloodGroup;
-        myDonor.isVerified = false;
-        myDonor.verifierAddress = 0;
-        myDonor.hospitalAddress = 0;
+        myDonor.isQualified = false;
+        myDonor.testCenter = 0;
+        myDonor.hospital = 0;
 
         // set all values and put in event
-        DonorCreatedEvent(donorID, msg.sender, _nameOfDonor, _age, _sex, _donationTime, _bloodGroup, myDonor.isVerified, myDonor.verifierAddress, myDonor.hospitalAddress);
+        DonorCreatedEvent(donorID, msg.sender, _nameOfDonor, _age, _sex, _donationTime, _bloodGroup, myDonor.isQualified, myDonor.testCenter, myDonor.hospital);
     }
 
     event IsTestedEvent(
-        address  donationCenter, 
-        string  nameOfDonor, 
-        uint age,
-        string sex,
-        uint date, 
-        string bloodGroup,  
-        bool isVerified, 
-        address verifierAddress, 
-        address hospitalAddress
+        uint donorID,
+        address donationCenter, 
+        string nameOfDonor, 
+        uint age, 
+        string sex, 
+        uint donationTime, 
+        string bloodGroup, 
+        bool isQualified,
+        address testCenter, 
+        address hospital
     );
 
 
-    function isTested (uint _donorID) public {
-        donors[_donorID].isVerified = true;
-        donors[_donorID].verifierAddress = msg.sender;
-        IsTestedEvent(msg.sender, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isVerified, donors[_donorID].verifierAddress,donors[_donorID].hospitalAddress);
+    function isTested (
+        uint _donorID, 
+        bool _isQualified
+    ) public onlyRole("TestCenter")
+    {
+        require(donors[_donorID].donationCenter != 0);
+        // require(not expired) TODO
+        donors[_donorID].isQualified = _isQualified;
+        donors[_donorID].testCenter = msg.sender;
+        IsTestedEvent(_donorID, donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].hospital);
     }
 
     event IsConsumedEvent(
@@ -85,13 +93,13 @@ contract FeelGood {
         string sex, 
         uint date, 
         string bloodGroup,  
-        bool isVerified, 
-        address verifierAddress, 
-        address hospitalAddress
+        bool isQualified, 
+        address testCenter, 
+        address hospital
     );
 
-    function isConsumed(uint _donorID) public {
-        donors[_donorID].hospitalAddress = msg.sender;
-        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isVerified, donors[_donorID].verifierAddress,donors[_donorID].hospitalAddress);
+    function isConsumed(uint _donorID) public onlyRole("Hospital") {
+        donors[_donorID].hospital = msg.sender;
+        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].hospital);
     }
 }

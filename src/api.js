@@ -32,3 +32,6 @@ export const newStage1 = (nameOfDonor, age, sex, bloodGroup, donationTime) => we
   .then(from => FeelGood.defaults({ from }))
   .then(() => FeelGood.deployed())
   .then(i => i.setDonor(nameOfDonor, age, sex, bloodGroup, donationTime))
+
+export const hasRole = role => FeelGood.deployed()
+  .then(i => i.hasRole(sessionStorage.getItem('address'), role))

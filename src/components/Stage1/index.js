@@ -10,7 +10,7 @@ import * as api from '../../api'
 export default class Stage1 extends Component {
   constructor (props) {
     super(props)
-    this.state = { data: [] }
+    this.state = { data: [], addButtonVisible: false }
   }
 
   addData (args) {
@@ -37,6 +37,7 @@ export default class Stage1 extends Component {
 
   componentDidMount () {
     api.onStage1Event(ev => window.setTimeout(() => this.addData(ev), 0)) // FIXME: ...
+    api.hasRole('DonationCenter').then(addButtonVisible => this.setState({ addButtonVisible }))
   }
 
   render () {
@@ -48,7 +49,7 @@ export default class Stage1 extends Component {
               <h1>Donation Center</h1>
             </Col>
             <Col>
-              <Stage1Modal api={api} />
+              {this.state.addButtonVisible && <Stage1Modal api={api} />}
             </Col>
           </Row>
           <Divider style={{ margin: '10px 0' }} />
