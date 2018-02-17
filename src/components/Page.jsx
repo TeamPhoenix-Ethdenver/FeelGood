@@ -34,7 +34,7 @@ export default class Page extends Component {
           }}>
             {this.state.name
               ? <Dropdown overlay={menu}>
-                <a className='ant-dropdown-link'>
+                <a className='header-dropdown'>
                   {this.state.name}<Icon type='down' />
                 </a>
               </Dropdown>

@@ -79,7 +79,6 @@ class Stage1FormComponent extends Component {
               <Option key='Male'>Male</Option>
               <Option key='Female'>Female</Option>
               <Option key='Other'>Other</Option>
-              {/* TODO: all gennders */}
             </Select>
           )}
         </FormItem>

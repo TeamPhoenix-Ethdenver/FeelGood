@@ -6,7 +6,6 @@ export default class QRCodeModal extends Component {
   constructor (props) {
     super(props)
     this.state = { visible: false }
-    console.log(props)
   }
 
   render () {
