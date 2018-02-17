@@ -5,14 +5,14 @@ import * as moment from 'moment'
 
 const Stage1Card = props => {
   const data = [
-    { title: 'Name', description: props.name },
+    { title: 'Name', description: props.nameOfDonor },
     { title: 'Age', description: props.age },
-    { title: 'Gender', description: props.gender },
+    { title: 'Sex', description: props.sex },
     { title: 'Blood Group', description: <Tag>{props.bloodGroup}</Tag> },
     { title: 'Donate Time', description: moment(props.donationTime).format('MMM/DD/YYYY HH:mm') }
   ]
   return (
-    <Card title={'# ' + props.id} extra={<QRModal id={props.id} />}>
+    <Card title={'# ' + props.donorID} extra={<QRModal donorID={props.donorID} />}>
       <List
         itemLayout='horizontal'
         size='small'

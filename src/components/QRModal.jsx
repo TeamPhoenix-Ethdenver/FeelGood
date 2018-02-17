@@ -9,14 +9,14 @@ export default class QRCodeModal extends Component {
   }
 
   render () {
-    const uri = `#${this.props.id}`
+    const uri = `#${this.props.donorID}`
     return (
       <div>
         <a href={uri} onClick={() => this.setState({ visible: true })}>
           <Icon type='qrcode' />
         </a>
         <Modal
-          title={'# ' + this.props.id}
+          title={'# ' + this.props.donorID}
           visible={this.state.visible}
           onCancel={() => this.setState({ visible: false })}
           footer={null}

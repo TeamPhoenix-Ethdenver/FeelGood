@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Modal, Button, Icon, Form, Input, message, Select, InputNumber, DatePicker } from 'antd'
 import * as moment from 'moment'
 
-import * as api from '../../mockApi'
-
 const Option = Select.Option
 const FormItem = Form.Item
 
@@ -25,21 +23,19 @@ const tailFormItemLayout = {
 }
 
 class Stage1FormComponent extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { isSubmitting: false }
-  }
   handleSubmit (e) {
-    this.setState({ isSubmitting: true })
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        api.newStage1(values.name, values.age, values.gender, values.bloodGroup, values.donationTime)
+        this.props.api.newStage1(values.name, values.age, values.sex, values.bloodGroup, values.donationTime.unix())
           .then(() => {
-            this.setState({ isSubmitting: false })
             message.success('Submitted.')
+            this.props.submitted()
           })
-          .catch(err => message.error(err.message))
+          .catch(err => {
+            console.error(err)
+            message.error(err.message)
+          })
       }
     })
     return false
@@ -68,14 +64,14 @@ class Stage1FormComponent extends Component {
             }]
           })(<InputNumber min={18} style={{ width: '100%' }} placeholder='Please input donor age' />)}
         </FormItem>
-        <FormItem {...formItemLayout} label='Gender'>
-          {getFieldDecorator('gender', {
+        <FormItem {...formItemLayout} label='Sex'>
+          {getFieldDecorator('sex', {
             rules: [{
               required: true,
-              message: 'Please input Gender'
+              message: 'Please input Sex'
             }]
           })(
-            <Select placeholder='Please select gender'>
+            <Select placeholder='Please select sex'>
               <Option key='Male'>Male</Option>
               <Option key='Female'>Female</Option>
               <Option key='Other'>Other</Option>
@@ -140,7 +136,7 @@ export default class Stage1Modal extends Component {
           onCancel={() => this.setState({ visible: false })}
           footer={null}
         >
-          <Stage1Form roles={this.props.roles} />
+          <Stage1Form {...this.props} submitted={() => this.setState({ visible: false })} />
         </Modal>
       </div>
     )

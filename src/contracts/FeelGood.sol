@@ -5,96 +5,92 @@ contract FeelGood {
     
     struct Donor {
         address donationCenter;
-        bytes32  nameOfDonor;
+        string  nameOfDonor;
         uint age;
-        bytes4 sex;
-        uint date;
-        bytes32 bloodGroup;
+        string sex;
+        uint donationTime;
+        string bloodGroup;
         bool isVerified;
-        address nameOfVerifier;
+        address verifierAddress;
         address hospitalAddress;
    }
     
-    mapping (uint => Donor) donors;
-    uint[] public donorAccts; //key to the map in int. Also the donor ID in this case
+    mapping (uint => Donor) public donors;
     
     event DonorCreatedEvent(
-        address  donationCenter, 
-        bytes32  nameOfDonor, 
+        uint donorID,
+        address donationCenter, 
+        string nameOfDonor, 
         uint age, 
-        bytes4 sex, 
-        uint date, 
-        bytes32 bloodGroup, 
+        string sex, 
+        uint donationTime, 
+        string bloodGroup, 
         bool isVerified,
-        address nameOfVerifier, 
+        address verifierAddress, 
         address hospitalAddress
     );
     
     function setDonor (
-    //        uint      _donorID, //global variable which increases by itself
-        bytes32 _nameOfDonor,
+        string _nameOfDonor,
         uint _age,
-        bytes4 _sex,
-        bytes32 _bloodGroup
+        string _sex,
+        string _bloodGroup,
+        uint _donationTime
     ) public 
     {
         //Donor  memory myDonor = Donor({ donationCenter:msg.sender, nameOfDonor:_nameOfDonor, donorID:_donorID, nationality:_nationality,
-        //heightInCm:_heightInCm,sex:_sex,weight:_weight, date:now, bloodGroup:_bloodGroup, isVerified:false, nameOfVerifier:"None"   });
+        //heightInCm:_heightInCm,sex:_sex,weight:_weight, date:now, bloodGroup:_bloodGroup, isVerified:false, verifierAddress:"None"   });
+        require(_age >= 18);
+
+        donorID = donorID+1;
 
         var myDonor = donors[donorID];
         myDonor.nameOfDonor = _nameOfDonor;
         myDonor.age = _age;
         myDonor.sex = _sex;
+        myDonor.donationTime = _donationTime;
         myDonor.bloodGroup = _bloodGroup;
         myDonor.isVerified = false;
-        myDonor.nameOfVerifier = 0;
+        myDonor.verifierAddress = 0;
         myDonor.hospitalAddress = 0;
-        donorID = donorID+1;
 
-        //donorAccts.push(_donorID)-1;
         // set all values and put in event
+        DonorCreatedEvent(donorID, msg.sender, _nameOfDonor, _age, _sex, _donationTime, _bloodGroup, myDonor.isVerified, myDonor.verifierAddress, myDonor.hospitalAddress);
+    }
 
-        DonorCreatedEvent(msg.sender, _nameOfDonor, _age, _sex, now, _bloodGroup, myDonor.isVerified, myDonor.nameOfVerifier, myDonor.hospitalAddress);
-    }
-    /*
-    function getDonorsAccts() view public returns (uint[]) {
-        return donorAccts;
-    }
-    */
     event IsTestedEvent(
         address  donationCenter, 
-        bytes32  nameOfDonor, 
+        string  nameOfDonor, 
         uint age,
-        bytes4 sex,
+        string sex,
         uint date, 
-        bytes32 bloodGroup,  
+        string bloodGroup,  
         bool isVerified, 
-        address nameOfVerifier, 
+        address verifierAddress, 
         address hospitalAddress
     );
 
 
     function isTested (uint _donorID) public {
         donors[_donorID].isVerified = true;
-        donors[_donorID].nameOfVerifier = msg.sender;
-        IsTestedEvent(msg.sender, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isVerified, donors[_donorID].nameOfVerifier,donors[_donorID].hospitalAddress);
+        donors[_donorID].verifierAddress = msg.sender;
+        IsTestedEvent(msg.sender, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isVerified, donors[_donorID].verifierAddress,donors[_donorID].hospitalAddress);
     }
 
     event IsConsumedEvent(
         address  donationCenter, 
-        bytes32  nameOfDonor, 
+        string  nameOfDonor, 
         uint age, 
-        bytes4 sex, 
+        string sex, 
         uint date, 
-        bytes32 bloodGroup,  
+        string bloodGroup,  
         bool isVerified, 
-        address nameOfVerifier, 
+        address verifierAddress, 
         address hospitalAddress
     );
 
-    
     function isConsumed(uint _donorID) public {
         donors[_donorID].hospitalAddress = msg.sender;
-        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isVerified, donors[_donorID].nameOfVerifier,donors[_donorID].hospitalAddress);
+        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isVerified, donors[_donorID].verifierAddress,donors[_donorID].hospitalAddress);
     }
 }
