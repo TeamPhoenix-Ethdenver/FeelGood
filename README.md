@@ -60,11 +60,25 @@ Solidity (Ethereum platform), React-JS, uPort API, Ant.design, react-scripts, qr
 
 ### How to use
 
-1. clone repo
+#### Running with ganache locally
+1. clone repo and cd into it
 
-2. ``` npm install```
+2. ```yarn```
 
-3. ```npm start```
+3. ```yarn start```
+
+4. ```yarn global add ganache-cli```
+
+5. ```ganache-cli -p 9545```
+
+6. ```cd src && truffle console --network ganache```
+
+8. ```migrate```
+
+9. modify address in `init_contract.js`
+
+10. ```exec init_contract.js```
+
 
 ### Authors
 

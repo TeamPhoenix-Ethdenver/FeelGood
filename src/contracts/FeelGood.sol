@@ -87,13 +87,13 @@ contract FeelGood is RBAC {
 
     event IsConsumedEvent(
         uint donorID,
-        address  donationCenter, 
-        string  nameOfDonor, 
+        address donationCenter, 
+        string nameOfDonor, 
         uint age, 
         string sex, 
-        uint date, 
-        string bloodGroup,  
-        bool isQualified, 
+        uint donationTime, 
+        string bloodGroup, 
+        bool isQualified,
         address testCenter, 
         address healthCenter
     );

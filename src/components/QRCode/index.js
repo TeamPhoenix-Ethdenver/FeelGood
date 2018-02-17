@@ -50,14 +50,14 @@ const QRCard = props => {
 }
 
 export default class QRCode extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       donor: null
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const donorID = this.props.match.params.id
     api.getByID(donorID).then(args => {
       this.setState({
@@ -77,7 +77,7 @@ export default class QRCode extends Component {
     })
   }
 
-  render() {
+  render () {
     return (
       <Page>
         <Spin spinning={!this.state.donor}>

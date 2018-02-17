@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Connect, SimpleSigner } from 'uport-connect'
 import Key from '../../key.json'
 import { decode } from 'mnid'
-import Web3 from 'web3'
+// import Web3 from 'web3'
 
 export default class SignIn extends Component {
   constructor ({ location }) {
@@ -19,28 +19,28 @@ export default class SignIn extends Component {
       signer: SimpleSigner(Key.uPortSigner)
     })
 
-    const web3 = new Web3('http://localhost:9545')
-    web3.eth.getCoinbase()
-      .then(address => {
-        console.group('ganache')
-        console.log(address)
-        sessionStorage.setItem('address', address)
-        sessionStorage.setItem('userProfile', JSON.stringify({ name: 'ganache' }))
+    // const web3 = new Web3('http://localhost:9545')
+    // web3.eth.getCoinbase()
+    //   .then(address => {
+    //     console.group('ganache')
+    //     console.log(address)
+    //     sessionStorage.setItem('address', address)
+    //     sessionStorage.setItem('userProfile', JSON.stringify({ name: 'ganache' }))
+    //     console.groupEnd()
+    //   })
+    uport.requestCredentials({
+      requested: ['name', 'avatar', 'phone', 'country'],
+      notifications: true
+    })
+      .then(userProfile => {
+        console.group('userProfile: ')
+        const address = decode(userProfile.address).address
+        console.dir(userProfile)
+        console.dir(address)
         console.groupEnd()
+        sessionStorage.setItem('address', address)
+        sessionStorage.setItem('userProfile', JSON.stringify(userProfile))
       })
-      // uport.requestCredentials({
-      //   requested: ['name', 'avatar', 'phone', 'country'],
-      //   notifications: true
-      // })
-      //   .then(userProfile => {
-      //     console.group('userProfile: ')
-      //     const address = decode(userProfile.address).address
-      //     console.dir(userProfile)
-      //     console.dir(address)
-      //     console.groupEnd()
-      //     sessionStorage.setItem('address', address)
-      //     sessionStorage.setItem('userProfile', JSON.stringify(userProfile))
-      //   })
       .then(() => {
         window.location.href = this.state ? this.state.from.pathname : '/'
       })

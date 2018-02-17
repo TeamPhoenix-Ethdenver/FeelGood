@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import './intro.less'
 
 export default class Intro extends Component {
@@ -76,9 +75,7 @@ export default class Intro extends Component {
               <li>Traceable</li>
               <li>Blood bank system</li>
             </ul>
-            <div>
-              <button className='button'>Try it</button>
-            </div>
+            <div />
           </div>
         </section>
         <section className='section2'>
@@ -148,7 +145,7 @@ export default class Intro extends Component {
           <div>
             <div />
             <div>
-              <h2>Hospital</h2>
+              <h2>Health Center</h2>
               <ul>
                 <li>- View history of blood bottle</li>
                 <li>- Filter based on requirement</li>

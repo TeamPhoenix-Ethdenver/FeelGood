@@ -29,9 +29,12 @@ export default class Page extends Component {
           <div style={{
             width: '100%',
             display: 'flex',
-            flexDirection: 'row-reverse',
+            justifyContent: 'space-between',
             alignItems: 'center'
           }}>
+            <div>
+              <a href='/'>FeelGood</a>
+            </div>
             {this.state.name
               ? <Dropdown overlay={menu}>
                 <a className='header-dropdown'>

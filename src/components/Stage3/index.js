@@ -21,6 +21,7 @@ export default class Stage3 extends Component {
     console.log(args)
 
     if (!args.isQualified) {
+      console.groupEnd()
       return
     }
 
