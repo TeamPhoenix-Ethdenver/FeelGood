@@ -78,6 +78,7 @@ contract FeelGood is RBAC {
     ) public onlyRole("TestCenter")
     {
         require(donors[_donorID].donationCenter != 0);
+        require(donors[_donorID].testCenter == 0);
         // require(not expired) TODO
         donors[_donorID].isQualified = _isQualified;
         donors[_donorID].testCenter = msg.sender;
@@ -85,6 +86,7 @@ contract FeelGood is RBAC {
     }
 
     event IsConsumedEvent(
+        uint donorID,
         address  donationCenter, 
         string  nameOfDonor, 
         uint age, 
@@ -97,7 +99,9 @@ contract FeelGood is RBAC {
     );
 
     function isConsumed(uint _donorID) public onlyRole("HealthCenter") {
+        require(donors[_donorID].isQualified);
+        require(donors[_donorID].healthCenter == 0);
         donors[_donorID].healthCenter = msg.sender;
-        IsConsumedEvent(donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].healthCenter);
+        IsConsumedEvent(_donorID, donors[_donorID].donationCenter, donors[_donorID].nameOfDonor, donors[_donorID].age, donors[_donorID].sex, now, donors[_donorID].bloodGroup, donors[_donorID].isQualified, donors[_donorID].testCenter,donors[_donorID].healthCenter);
     }
 }

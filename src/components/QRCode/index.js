@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Spin, Card, List, Tag } from 'antd'
+import { Spin, Card, List, Tag, Icon } from 'antd'
 import * as moment from 'moment'
 
 import Page from '../Page'
@@ -18,7 +18,12 @@ const QRCard = props => {
     data.push({ title: 'Tested', description: <Tag>No</Tag> })
   } else {
     data.push({ title: 'Tested', description: <Tag>Yes</Tag> })
-    data.push({ title: 'Accepted', description: <Tag>{props.isQualified ? 'Yes' : 'No'}</Tag> })
+    data.push({
+      title: 'Is Qualified',
+      description: <Tag color={props.isQualified ? 'green' : 'red'}>
+        <Icon type={props.isQualified ? 'check' : 'close'} />
+      </Tag>
+    })
     data.push({ title: 'Test Center', description: props.testCenter })
     if (!window.parseInt(props.healthCenter)) {
       data.push({ title: 'Consumed', description: <Tag>No</Tag> })
@@ -45,14 +50,14 @@ const QRCard = props => {
 }
 
 export default class QRCode extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       donor: null
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const donorID = this.props.match.params.id
     api.getByID(donorID).then(args => {
       this.setState({
@@ -72,7 +77,7 @@ export default class QRCode extends Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <Page>
         <Spin spinning={!this.state.donor}>

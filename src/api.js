@@ -63,3 +63,8 @@ export const testApprove = donorID => web3.eth.getCoinbase()
   .then(from => FeelGood.defaults({ from }))
   .then(() => FeelGood.deployed())
   .then(i => i.isTested(donorID, true))
+
+export const consume = donorID => web3.eth.getCoinbase()
+  .then(from => FeelGood.defaults({ from }))
+  .then(() => FeelGood.deployed())
+  .then(i => i.isConsumed(donorID))

@@ -20,7 +20,7 @@ const Stage1Card = props => {
         dataSource={data}
         renderItem={item => (
           <List.Item>
-            <List.Item.Meta {...item} />
+            <List.Item.Meta {...item} style={{ overflowX: 'auto' }} />
           </List.Item>
         )}
       />

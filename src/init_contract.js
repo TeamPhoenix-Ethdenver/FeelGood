@@ -7,13 +7,13 @@ module.exports = function (callback) {
   }).then(() => {
     // instance.adminAddRole('0x824fcdc476f1c85f9fa5f27f8f0c6ce630b7ee74', 'DonationCenter')
     console.log('adding donation center')
-    return instance.adminAddRole('0xb3A20E9938BC4E2AEc60240B2B7c20706d5EB9A6', 'DonationCenter')
+    return instance.adminAddRole('0x49757b42aE5D2566ed138acFE70a27b7f58d6d1a', 'DonationCenter')
   }).then(() => {
     console.log('adding test center')
-    return instance.adminAddRole('0xb3A20E9938BC4E2AEc60240B2B7c20706d5EB9A6', 'TestCenter')
+    return instance.adminAddRole('0x49757b42aE5D2566ed138acFE70a27b7f58d6d1a', 'TestCenter')
   }).then(() => {
     console.log('adding health center')
-    return instance.adminAddRole('0xb3A20E9938BC4E2AEc60240B2B7c20706d5EB9A6', 'HealthCenter')
+    return instance.adminAddRole('0x49757b42aE5D2566ed138acFE70a27b7f58d6d1a', 'HealthCenter')
   }).then(() => {
     console.log('adding Alice')
     return instance.setDonor('Alice', 18, 'Female', 'A+', new Date().getTime())

@@ -16,7 +16,12 @@ const Stage2Card = props => {
   ]
   if (window.parseInt(props.testCenter)) {
     data.push({ title: 'Tested', description: <Tag>Yes</Tag> })
-    data.push({ title: 'Is Qualified', description: <Tag><Icon type={props.isQualified ? 'check' : 'close'} /></Tag> })
+    data.push({
+      title: 'Is Qualified',
+      description: <Tag color={props.isQualified ? 'green' : 'red'}>
+        <Icon type={props.isQualified ? 'check' : 'close'} />
+      </Tag>
+    })
     data.push({ title: 'Test Center', description: props.testCenter })
   } else {
     data.push({ title: 'Tested', description: <Tag>No</Tag> })
