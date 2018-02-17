@@ -107,7 +107,7 @@ class Stage1FormComponent extends Component {
           {getFieldDecorator('donationTime', {
             rules: [{ required: true, message: 'Please input Donation Time' }],
             initialValue: moment()
-          })(<DatePicker showTime format='MMM/DD/YYYY HH:mm:ss' style={{ width: '100%' }} />)}
+          })(<DatePicker showTime format='MMM/DD/YYYY HH:mm' style={{ width: '100%' }} />)}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type='primary' htmlType='submit'>
