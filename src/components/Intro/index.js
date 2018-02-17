@@ -54,19 +54,21 @@ export default class Intro extends Component {
   }
 
   render () {
-    // TODO: fill the blanks
-    // TODO: Pink panther
     return (
       <div id='intro'>
-     
         <section className='section1'>
           <div className='top'>
             <div className='logo-wrapper animated infinite'>
               <i className='fas fa-heart animated infinite logo-icon' />
             </div>
+            <img src={process.env.PUBLIC_URL + 'transparent_pinkpanther.png'}
+              alt='pink-panther'
+              width='200'
+              height='200'
+              className='animated fadeInLeft'
+            />
           </div>
           <div className='bottom'>
-          <img src={process.env.PUBLIC_URL + 'transparent_pinkpanther.png'} width="200" height="200"/>;
             <h1>FeelGood</h1>
             <ul>
               <li>Transparent</li>
@@ -116,6 +118,7 @@ export default class Intro extends Component {
         </section>
         <section className='section3'>
           <div>
+            <div />
             <div>
               <h2>Donation Center</h2>
               <ul>
@@ -129,12 +132,13 @@ export default class Intro extends Component {
             </div>
           </div>
           <div>
+            <div />
             <div>
               <h2>Test Center</h2>
               <ul>
                 <li>- Verify information of blood by conducting tests</li>
                 <li>- Digitally signing to validate blood details</li>
-                
+
               </ul>
             </div>
             <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-2') }}>
@@ -142,6 +146,7 @@ export default class Intro extends Component {
             </div>
           </div>
           <div>
+            <div />
             <div>
               <h2>Hospital</h2>
               <ul>

@@ -41,11 +41,11 @@ export default class Page extends Component {
               : <div>Login</div>}
           </div></Header>
         <Content>
-          <Content style={{ backgroundColor: 'white', margin: '24px 24px 0', padding: 24 }}>
+          <Content style={{ backgroundColor: 'white', margin: 24, padding: 24 }}>
             {this.props.children}
           </Content>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
+        <Footer style={{ textAlign: 'center', backgroundColor: 'rgba(0, 96, 255, 0.6)', color: 'white', padding: 10 }}>
           Built With Love @ ETHDenver
           <br />
           <small>Copyright © Team Phoenix</small>
