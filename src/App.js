@@ -5,6 +5,7 @@ import Intro from './components/Intro'
 import Stage1 from './components/Stage1'
 import Page from './components/Page'
 import SignIn from './components/SignIn'
+import QRCode from './components/QRCode'
 
 const IdentifiedRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -30,6 +31,7 @@ export default class App extends Component {
           <Route exact path='/' component={Intro} />
           <Route exact path='/page' component={Page} />
           <Route exact path='/sign-in' component={SignIn} />
+          <IdentifiedRoute path='/qrcode/:id' component={QRCode} />
           <Route exact path='/stage-1' render={props => <Redirect
             to={{ pathname: '/donation-center' }}
           />} />

@@ -45,6 +45,7 @@ contract FeelGood {
         donorID = donorID+1;
 
         var myDonor = donors[donorID];
+        myDonor.donationCenter = msg.sender;
         myDonor.nameOfDonor = _nameOfDonor;
         myDonor.age = _age;
         myDonor.sex = _sex;

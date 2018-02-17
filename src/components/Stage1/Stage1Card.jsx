@@ -5,6 +5,7 @@ import * as moment from 'moment'
 
 const Stage1Card = props => {
   const data = [
+    { title: 'Donation Center', description: props.donationCenter },
     { title: 'Name', description: props.nameOfDonor },
     { title: 'Age', description: props.age },
     { title: 'Sex', description: props.sex },
