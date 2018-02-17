@@ -58,6 +58,7 @@ export default class Intro extends Component {
     // TODO: Pink panther
     return (
       <div id='intro'>
+     
         <section className='section1'>
           <div className='top'>
             <div className='logo-wrapper animated infinite'>
@@ -65,12 +66,13 @@ export default class Intro extends Component {
             </div>
           </div>
           <div className='bottom'>
-            <h1>Feel Good</h1>
+          <img src={process.env.PUBLIC_URL + 'transparent_pinkpanther.png'} width="200" height="200"/>;
+            <h1>FeelGood</h1>
             <ul>
-              <li>point1</li>
-              <li>point2</li>
-              <li>point3</li>
-              <li>point4</li>
+              <li>Transparent</li>
+              <li>Secure</li>
+              <li>Traceable</li>
+              <li>Blood bank system</li>
             </ul>
             <div>
               <button className='button'>Try it</button>
@@ -81,45 +83,45 @@ export default class Intro extends Component {
           <div>
             <div className='num'>
               <div className='num-inner hide'>
-                1.6M
+                4.5
                 </div>
             </div>
             <div className='text'>
-              <h2>Title1</h2>
-              <div>Description1</div>
+              <h2>$ 4.5 billion</h2>
+              <div>The blood donation industry makes upto $ 4.5 billion annually in the United States of America.</div>
             </div>
           </div>
           <div>
             <div className='num'>
               <div className='num-inner hide'>
-                365
+                2
                 </div>
             </div>
             <div className='text'>
-              <h2>Title2</h2>
-              <div>Description2</div>
+              <h2>2 seconds</h2>
+              <div>Every 2 seconds someone in the US needs blood.</div>
             </div>
           </div>
           <div>
             <div className='num'>
               <div className='num-inner hide'>
-                72%
+                235
                 </div>
             </div>
             <div className='text'>
-              <h2>Title3</h2>
-              <div>Description3</div>
+              <h2>235 people</h2>
+              <div>The Red Cross donation center at Washington DC closed in the early 90s when 235 people who had received blood from the center tested positive for the AIDS virus.</div>
             </div>
           </div>
         </section>
         <section className='section3'>
           <div>
             <div>
-              <h2>Blood Center</h2>
+              <h2>Donation Center</h2>
               <ul>
-                <li>- blood center 1</li>
-                <li>- blood center 2</li>
-                <li>- blood center 3</li>
+                <li>- Get volunteers to donate blood</li>
+                <li>- Give blood bottle a digital identity</li>
+                <li>- Sign contract for accountability</li>
               </ul>
             </div>
             <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-1') }}>
@@ -130,9 +132,9 @@ export default class Intro extends Component {
             <div>
               <h2>Test Center</h2>
               <ul>
-                <li>- test center 1</li>
-                <li>- test center 2</li>
-                <li>- test center 3</li>
+                <li>- Verify information of blood by conducting tests</li>
+                <li>- Digitally signing to validate blood details</li>
+                
               </ul>
             </div>
             <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-2') }}>
@@ -141,11 +143,11 @@ export default class Intro extends Component {
           </div>
           <div>
             <div>
-              <h2>Blood user</h2>
+              <h2>Hospital</h2>
               <ul>
-                <li>- blood user 1</li>
-                <li>- blood user 2</li>
-                <li>- blood user 3</li>
+                <li>- View history of blood bottle</li>
+                <li>- Filter based on requirement</li>
+                <li>- Provide blood to patient in need</li>
               </ul>
             </div>
             <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-3') }}>
