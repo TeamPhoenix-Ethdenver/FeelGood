@@ -35,7 +35,7 @@ Every 2 seconds, someone in the US needs blood. Even though, we **DONATE** blood
 
 ### Technologies:
 ```
-Solidity, React-JS, uPort API, Ant.design, react-scripts, qrcode.react, uport-connect
+Solidity (Ethereum platform), React-JS, uPort API, Ant.design, react-scripts, qrcode.react, uport-connect, open-zeppelin
 ```
 ### USP of our project/novelty:
 
@@ -43,6 +43,15 @@ Solidity, React-JS, uPort API, Ant.design, react-scripts, qrcode.react, uport-co
 
 - Moreover, we have generated QR code labels for bottles/pints of blood which can be just read by a simple camera and taken directly to authentication page. Note: No web-app will be required if the testing and health center go with this route. This kind of a mechanism hasn't been implemented before. 
 
-### Implemention
+### Implemention:
+
+1. **A donation center** authorized by the government (Like Red Cross, Denver) takes donors information and signs it using uPort (calling a smart contract) which logs the information and stores it using events.
+<img src="./public/donate_panther.png" width="300px" height="300px"/>
 
 
+
+2. **A testing center** will have laboratory assistant verifying about the quality of blood after coducting tests like -- Rho, Alpha, HIV and Syphilis. The assistant will scan the QR code attached on bottle and confirm the transaction.
+<img src="./public/transparent_pinkpanther.png" width="300px" height="300px"/>
+
+
+3. **A health center** will be able to view all transaction history (ie. Information was verified by the donation center, and blood was tested in the lab) and then gets to filter the blood group they need for a patient. The doctor will only be able to view blood pints which are verified and unexpired. After utilising the blood resource, the doctor will sign a transaction confirming the consumption.
