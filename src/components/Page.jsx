@@ -7,7 +7,7 @@ const MenuItem = Menu.Item
 const menu = (
   <Menu theme='dark'>
     <MenuItem>
-      <a href='/FeelGood'>Sign Out</a>
+      <a href='/'>Sign Out</a>
     </MenuItem>
   </Menu>
 )
@@ -31,7 +31,7 @@ export default class Page extends Component {
             alignItems: 'center'
           }}>
             <div>
-              <a href='/FeelGood' style={{ color: 'white', fontSize: 32 }}>FeelGood</a>
+              <a href='/' style={{ color: 'white', fontSize: 32 }}>FeelGood</a>
             </div>
             {this.state.name
               ? <Dropdown overlay={menu}>

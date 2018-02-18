@@ -76,19 +76,19 @@ export default class Intro extends Component {
               <li>Blood bank system</li>
             </ul>
             <div className='icons animated fadeInUp'>
-              <a className='icon' href='/FeelGood/stage-1'>
+              <a className='icon' href='/stage-1'>
                 <i className='fas fa-ambulance' />
               </a>
               <div className='icon'>
                 <i className='fas fa-caret-right' />
               </div>
-              <a className='icon' href='/FeelGood/stage-2'>
+              <a className='icon' href='/stage-2'>
                 <i className='fas fa-hospital' />
               </a>
               <div className='icon'>
                 <i className='fas fa-caret-right' />
               </div>
-              <a className='icon' href='/FeelGood/stage-3'>
+              <a className='icon' href='/stage-3'>
                 <i className='fas fa-medkit' />
               </a>
               {/* <div className='icon'>
@@ -147,7 +147,7 @@ export default class Intro extends Component {
                 <li>- Sign contract for accountability</li>
               </ul>
             </div>
-            <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/FeelGood/stage-1') }}>
+            <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-1') }}>
               <i className='fas fa-ambulance' />
             </div>
           </div>
@@ -161,7 +161,7 @@ export default class Intro extends Component {
 
               </ul>
             </div>
-            <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/FeelGood/stage-2') }}>
+            <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-2') }}>
               <i className='fas fa-hospital' />
             </div>
           </div>
@@ -175,7 +175,7 @@ export default class Intro extends Component {
                 <li>- Provide blood to patient in need</li>
               </ul>
             </div>
-            <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/FeelGood/stage-3') }}>
+            <div className='icon-wrapper hide' onClick={() => { (window.location.href = '/stage-3') }}>
               <i className='fas fa-medkit' />
             </div>
           </div>

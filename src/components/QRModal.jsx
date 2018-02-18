@@ -9,7 +9,7 @@ export default class QRCodeModal extends Component {
   }
 
   render () {
-    const uri = `/FeelGood/qrcode/${this.props.donorID}`
+    const uri = `/qrcode/${this.props.donorID}`
     return (
       <div>
         <a onClick={() => this.setState({ visible: true })}>

@@ -22,7 +22,7 @@ export default class Stage2 extends Component {
         .then(i => i.hasRole(address, 'DonationCenter'))
         .then(res => {
           if (!res) {
-            window.location.href = '/FeelGood/403'
+            window.location.href = '/403'
           } else {
             this.setState({ loggedin: true })
           }
