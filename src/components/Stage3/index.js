@@ -15,7 +15,7 @@ const SelectOption = Select.Option
 export default class Stage3 extends Component {
   constructor (props) {
     super(props)
-    this.state = { data: [], showAll: true, bloodGroup: 'All' }
+    this.state = { data: [], showAll: true, bloodGroup: 'All', spinnings: {} }
     login().then(userProfile => {
       const address = decode(userProfile.address).address
       this.setState({ name: userProfile.name })
@@ -29,7 +29,12 @@ export default class Stage3 extends Component {
           }
         }).then(() => {
           const consume = donorID => api.getContract(uport.getProvider()).deployed()
-            .then(i => i.isConsumed(donorID, { from: address }))
+            .then(i => {
+              const spinnings = this.state.spinnings
+              spinnings[donorID] = true
+              this.setState({ spinnings })
+              i.isConsumed(donorID, { from: address })
+            })
           this.setState({ consume })
         })
     })
@@ -43,6 +48,10 @@ export default class Stage3 extends Component {
       console.groupEnd()
       return
     }
+
+    const spinnings = this.state.spinnings
+    spinnings[args.donorID] = false
+    this.setState({ spinnings })
 
     let alreadyExists = false
     this.state.data.forEach(one => {
@@ -66,6 +75,11 @@ export default class Stage3 extends Component {
   addStage3 (args) {
     console.group('Stage3 - addDataStage3')
     console.log(args)
+
+    const spinnings = this.state.spinnings
+    spinnings[args.donorID] = false
+    this.setState({ spinnings })
+
     let oldData = null
     this.state.data.forEach(one => {
       if (one.donorID.toString() === args.donorID.toString()) {
@@ -106,14 +120,16 @@ export default class Stage3 extends Component {
       data = data.filter(one => one.bloodGroup === this.state.bloodGroup)
     }
     return data.map(one => <Col key={one.donorID} sm={24} md={12} lg={8} xl={6} style={{ marginBottom: 10 }}>
-      <Stage3Card {...one} />
+      <Spin spinning={this.state.spinnings[one.donorID]}>
+        <Stage3Card {...one} />
+      </Spin>
     </Col>
     )
   }
 
   render () {
     return (
-      <Spin spinnint={!this.state.loggedin}>
+      <Spin style={{ width: '100%', marginTop: 32 }} spinning={!this.state.loggedin}>
         {this.state.loggedin && <Page name={this.state.name}>
           <div>
             <Row type='flex' justify='space-between' align='middle'>

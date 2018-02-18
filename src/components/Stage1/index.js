@@ -60,7 +60,7 @@ export default class Stage1 extends Component {
 
   render () {
     return (
-      <Spin spinning={!this.state.loggedin}>
+      <Spin style={{ width: '100%', marginTop: 32 }} spinning={!this.state.loggedin}>
         {this.state.loggedin && <Page name={this.state.name}>
           <div>
             <Row type='flex' justify='space-between' align='middle'>

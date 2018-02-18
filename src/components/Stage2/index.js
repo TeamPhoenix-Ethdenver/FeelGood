@@ -14,7 +14,7 @@ const RadioGroup = Radio.Group
 export default class Stage2 extends Component {
   constructor (props) {
     super(props)
-    this.state = { data: [], showAll: true, loggedin: false }
+    this.state = { data: [], showAll: true, loggedin: false, spinnings: {} }
     login().then(userProfile => {
       const address = decode(userProfile.address).address
       this.setState({ name: userProfile.name })
@@ -28,9 +28,19 @@ export default class Stage2 extends Component {
           }
         }).then(() => {
           const testReject = donorID => api.getContract(uport.getProvider()).deployed()
-            .then(i => i.isTested(donorID, false, { from: address }))
+            .then(i => {
+              const spinnings = this.state.spinnings
+              spinnings[donorID] = true
+              this.setState({ spinnings })
+              i.isTested(donorID, false, { from: address })
+            })
           const testApprove = donorID => api.getContract(uport.getProvider()).deployed()
-            .then(i => i.isTested(donorID, true, { from: address }))
+            .then(i => {
+              const spinnings = this.state.spinnings
+              spinnings[donorID] = true
+              this.setState({ spinnings })
+              i.isTested(donorID, true, { from: address })
+            })
           this.setState({ testReject, testApprove })
         })
     })
@@ -39,6 +49,11 @@ export default class Stage2 extends Component {
   addStage1 (args) {
     console.group('Stage2 - addDataStage1')
     console.log(args)
+
+    const spinnings = this.state.spinnings
+    spinnings[args.donorID] = false
+    this.setState({ spinnings })
+
     let alreadyExists = false
     this.state.data.forEach(one => {
       if (one.donorID.toString() === args.donorID.toString()) {
@@ -61,6 +76,11 @@ export default class Stage2 extends Component {
   addStage2 (args) {
     console.group('Stage2 - addDataStage2')
     console.log(args)
+
+    const spinnings = this.state.spinnings
+    spinnings[args.donorID] = false
+    this.setState({ spinnings })
+
     let oldData = null
     this.state.data.forEach(one => {
       if (one.donorID.toString() === args.donorID.toString()) {
@@ -101,14 +121,16 @@ export default class Stage2 extends Component {
       data = this.state.data
     }
     return data.map(one => <Col key={one.donorID} sm={24} md={12} lg={8} xl={6} style={{ marginBottom: 10 }}>
-      <Stage2Card {...this.state} {...one} />
+      <Spin spinning={this.state.spinnings[one.donorID]}>
+        <Stage2Card {...this.state} {...one} />
+      </Spin>
     </Col>
     )
   }
 
   render () {
     return (
-      <Spin spinning={!this.state.loggedin}>
+      <Spin style={{ width: '100%', marginTop: 32 }} spinning={!this.state.loggedin}>
         {this.state.loggedin && <Page name={this.state.name}>
           <div>
             <Row type='flex' justify='space-between' align='middle'>

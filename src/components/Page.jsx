@@ -42,7 +42,7 @@ export default class Page extends Component {
               : <div>Login</div>}
           </div></Header>
         <Content>
-          <Content style={{ backgroundColor: this.props.backgroundColor || 'white', margin: 24, padding: 24 }}>
+          <Content style={{ backgroundColor: this.props.backgroundColor || 'white', margin: 12, padding: 12 }}>
             {this.props.children}
           </Content>
         </Content>

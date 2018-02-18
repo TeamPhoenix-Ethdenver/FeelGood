@@ -30,10 +30,10 @@ const Stage2Card = props => {
       title={'# ' + props.donorID}
       extra={<QRModal donorID={props.donorID} />}
       actions={!window.parseInt(props.testCenter) && [
-        <Popconfirm placement='top' title='I confirm to REJECT and digital signing this confirmation.' onConfirm={() => this.props.testReject(props.donorID)} okText='Reject' okType='danger' cancelText='Cancel'>
+        <Popconfirm placement='top' title='I confirm to REJECT and digital signing this confirmation.' onConfirm={() => props.testReject(props.donorID)} okText='Reject' okType='danger' cancelText='Cancel'>
           <Button type='danger'><Icon type='close' />Reject</Button>
         </Popconfirm>,
-        <Popconfirm placement='top' title='I confirm to APPROVE and digital signing this confirmation.' onConfirm={() => this.props.testApprove(props.donorID)} okText='Approve' cancelText='Cancel'>
+        <Popconfirm placement='top' title='I confirm to APPROVE and digital signing this confirmation.' onConfirm={() => props.testApprove(props.donorID)} okText='Approve' cancelText='Cancel'>
           <Button type='primary'><Icon type='check' />Approve</Button>
         </Popconfirm>
       ]}
