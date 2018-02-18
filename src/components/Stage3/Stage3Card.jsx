@@ -26,7 +26,7 @@ const Stage3Card = props => {
     <Card
       title={'# ' + props.donorID}
       extra={<QRModal donorID={props.donorID} />}
-      actions={props.hasRole && !window.parseInt(props.healthCenter) && [
+      actions={!window.parseInt(props.healthCenter) && [
         // TODO: confirm text
         <Popconfirm placement='top' title='I confirm to CONSUME and digital signing this confirmation.' onConfirm={() => api.consume(props.donorID)} okText='Consume' cancelText='Cancel'>
           <Button type='primary'><Icon type='smile-o' />Consume</Button>

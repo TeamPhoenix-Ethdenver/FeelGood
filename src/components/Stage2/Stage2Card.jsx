@@ -3,7 +3,6 @@ import { Card, List, Tag, Icon, Button, Popconfirm } from 'antd'
 import * as moment from 'moment'
 
 import QRModal from '../QRModal'
-import * as api from '../../api'
 
 const Stage2Card = props => {
   const data = [
@@ -30,13 +29,13 @@ const Stage2Card = props => {
     <Card
       title={'# ' + props.donorID}
       extra={<QRModal donorID={props.donorID} />}
-      actions={props.hasRole && !window.parseInt(props.testCenter) && [
+      actions={!window.parseInt(props.testCenter) && [
         // TODO: confirm text
-        <Popconfirm placement='top' title='I confirm to REJECT and digital signing this confirmation.' onConfirm={() => api.testReject(props.donorID)} okText='Reject' okType='danger' cancelText='Cancel'>
+        <Popconfirm placement='top' title='I confirm to REJECT and digital signing this confirmation.' onConfirm={() => this.props.testReject(props.donorID)} okText='Reject' okType='danger' cancelText='Cancel'>
           <Button type='danger'><Icon type='close' />Reject</Button>
         </Popconfirm>,
         // TODO: confirm text
-        <Popconfirm placement='top' title='I confirm to APPROVE and digital signing this confirmation.' onConfirm={() => api.testApprove(props.donorID)} okText='Approve' cancelText='Cancel'>
+        <Popconfirm placement='top' title='I confirm to APPROVE and digital signing this confirmation.' onConfirm={() => this.props.testApprove(props.donorID)} okText='Approve' cancelText='Cancel'>
           <Button type='primary'><Icon type='check' />Approve</Button>
         </Popconfirm>
       ]}

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { Row, Col, Divider, Radio, Select } from 'antd'
+import { Row, Col, Divider, Radio, Select, Spin } from 'antd'
 import * as moment from 'moment'
+import { decode } from 'mnid'
 
 import Page from '../Page'
 import Stage3Card from './Stage3Card'
 import * as api from '../../api'
+import { uport, login } from '../../uport'
 
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
@@ -13,7 +15,24 @@ const SelectOption = Select.Option
 export default class Stage3 extends Component {
   constructor (props) {
     super(props)
-    this.state = { data: [], hasRole: false, showAll: true, bloodGroup: 'All' }
+    this.state = { data: [], showAll: true, bloodGroup: 'All' }
+    login().then(userProfile => {
+      const address = decode(userProfile.address).address
+      this.setState({ name: userProfile.name })
+      api.getContract(uport.getProvider()).deployed()
+        .then(i => i.hasRole(address, 'DonationCenter'))
+        .then(res => {
+          if (!res) {
+            window.location.href = '/403'
+          } else {
+            this.setState({ loggedin: true })
+          }
+        }).then(() => {
+          const consume = donorID => api.getContract(uport.getProvider()).deployed()
+            .then(i => i.isConsumed(donorID, { from: address }))
+          this.setState({ consume })
+        })
+    })
   }
 
   addStage2 (args) {
@@ -76,7 +95,6 @@ export default class Stage3 extends Component {
   componentDidMount () {
     api.onStage2Event(args => window.setTimeout(() => this.addStage2(args))) // FIXME: ...)
     api.onStage3Event(args => window.setTimeout(() => this.addStage3(args)))
-    api.hasRole('HealthCenter').then(hasRole => this.setState({ hasRole }))
   }
 
   renderCards () {
@@ -88,49 +106,51 @@ export default class Stage3 extends Component {
       data = data.filter(one => one.bloodGroup === this.state.bloodGroup)
     }
     return data.map(one => <Col key={one.donorID} sm={24} md={12} lg={8} xl={6} style={{ marginBottom: 10 }}>
-      <Stage3Card hasRole={this.state.hasRole} {...one} />
+      <Stage3Card {...one} />
     </Col>
     )
   }
 
   render () {
     return (
-      <Page>
-        <div>
-          <Row type='flex' justify='space-between' align='middle'>
-            <Col>
-              <h1>Health Center</h1>
-            </Col>
-            <Col>
-              <Row type='flex' justify='space-around' align='middle' gutter={16}>
-                <Col>
-                  <RadioGroup onChange={e => this.setState({ showAll: e.target.value === 'All' })} defaultValue='All'>
-                    <RadioButton value='All'>All</RadioButton>
-                    <RadioButton value='unConsumed'>unConsumed</RadioButton>
-                  </RadioGroup>
-                </Col>
-                <Col>
-                  <Select defaultValue='All' style={{ width: 72 }} onChange={bloodGroup => this.setState({ bloodGroup })}>
-                    <SelectOption value='All'>All</SelectOption>
-                    <SelectOption value='A+'>A+</SelectOption>
-                    <SelectOption value='A-'>A-</SelectOption>
-                    <SelectOption value='B+'>B+</SelectOption>
-                    <SelectOption value='B-'>B-</SelectOption>
-                    <SelectOption value='AB+'>AB+</SelectOption>
-                    <SelectOption value='AB-'>AB-</SelectOption>
-                    <SelectOption value='O+'>O+</SelectOption>
-                    <SelectOption value='O-'>O-</SelectOption>
-                  </Select>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Divider style={{ margin: '10px 0' }} />
-          <Row gutter={16}>
-            {this.renderCards()}
-          </Row>
-        </div>
-      </Page >
+      <Spin spinnint={!this.state.loggedin}>
+        {this.state.loggedin && <Page name={this.state.name}>
+          <div>
+            <Row type='flex' justify='space-between' align='middle'>
+              <Col>
+                <h1>Health Center</h1>
+              </Col>
+              <Col>
+                <Row type='flex' justify='space-around' align='middle' gutter={16}>
+                  <Col>
+                    <RadioGroup onChange={e => this.setState({ showAll: e.target.value === 'All' })} defaultValue='All'>
+                      <RadioButton value='All'>All</RadioButton>
+                      <RadioButton value='unConsumed'>unConsumed</RadioButton>
+                    </RadioGroup>
+                  </Col>
+                  <Col>
+                    <Select defaultValue='All' style={{ width: 72 }} onChange={bloodGroup => this.setState({ bloodGroup })}>
+                      <SelectOption value='All'>All</SelectOption>
+                      <SelectOption value='A+'>A+</SelectOption>
+                      <SelectOption value='A-'>A-</SelectOption>
+                      <SelectOption value='B+'>B+</SelectOption>
+                      <SelectOption value='B-'>B-</SelectOption>
+                      <SelectOption value='AB+'>AB+</SelectOption>
+                      <SelectOption value='AB-'>AB-</SelectOption>
+                      <SelectOption value='O+'>O+</SelectOption>
+                      <SelectOption value='O-'>O-</SelectOption>
+                    </Select>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Divider style={{ margin: '10px 0' }} />
+            <Row gutter={16} type='flex'>
+              {this.renderCards()}
+            </Row>
+          </div>
+        </Page >}
+      </Spin>
     )
   }
 }

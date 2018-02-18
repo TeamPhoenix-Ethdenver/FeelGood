@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button, Icon, Form, Input, message, Select, InputNumber, DatePicker } from 'antd'
+import { Modal, Button, Icon, Form, Input, message, Select, InputNumber, DatePicker, Spin } from 'antd'
 import * as moment from 'moment'
 
 const Option = Select.Option
@@ -23,13 +23,20 @@ const tailFormItemLayout = {
 }
 
 class Stage1FormComponent extends Component {
+  constructor (props) {
+    super(props)
+    this.state = { spinning: false }
+  }
+
   handleSubmit (e) {
+    this.setState({ spinning: true })
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.api.newStage1(values.name, values.age, values.sex, values.bloodGroup, values.donationTime.unix())
+        this.props.newStage1(values.name, values.age, values.sex, values.bloodGroup, values.donationTime.unix())
           .then(() => {
             message.success('Submitted.')
+            this.setState({ spinning: false })
             this.props.submitted()
           })
           .catch(err => {
@@ -44,72 +51,74 @@ class Stage1FormComponent extends Component {
   render () {
     const { getFieldDecorator } = this.props.form
     return (
-      <Form onSubmit={e => this.handleSubmit(e)} autoComplete='nope'>
-        <FormItem {...formItemLayout} label='Name'>
-          {getFieldDecorator('name', {
-            rules: [
-              {
+      <Spin spinning={this.state.spinning}>
+        <Form onSubmit={e => this.handleSubmit(e)} autoComplete='nope'>
+          <FormItem {...formItemLayout} label='Name'>
+            {getFieldDecorator('name', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please input Name',
+                  whitespace: true
+                }
+              ]
+            })(<Input placeholder='Please input donor name' />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label='Age'>
+            {getFieldDecorator('age', {
+              rules: [{
                 required: true,
-                message: 'Please input Name',
-                whitespace: true
-              }
-            ]
-          })(<Input placeholder='Please input donor name' />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label='Age'>
-          {getFieldDecorator('age', {
-            rules: [{
-              required: true,
-              message: 'Please input Age'
-            }]
-          })(<InputNumber min={18} style={{ width: '100%' }} placeholder='Please input donor age' />)}
-        </FormItem>
-        <FormItem {...formItemLayout} label='Sex'>
-          {getFieldDecorator('sex', {
-            rules: [{
-              required: true,
-              message: 'Please input Sex'
-            }]
-          })(
-            <Select placeholder='Please select sex'>
-              <Option key='Male'>Male</Option>
-              <Option key='Female'>Female</Option>
-              <Option key='Other'>Other</Option>
-            </Select>
-          )}
-        </FormItem>
+                message: 'Please input Age'
+              }]
+            })(<InputNumber min={18} style={{ width: '100%' }} placeholder='Please input donor age' />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label='Sex'>
+            {getFieldDecorator('sex', {
+              rules: [{
+                required: true,
+                message: 'Please input Sex'
+              }]
+            })(
+              <Select placeholder='Please select sex'>
+                <Option key='Male'>Male</Option>
+                <Option key='Female'>Female</Option>
+                <Option key='Other'>Other</Option>
+              </Select>
+            )}
+          </FormItem>
 
-        <FormItem {...formItemLayout} label='Blood Group'>
-          {getFieldDecorator('bloodGroup', {
-            rules: [{
-              required: true,
-              message: 'Please select Blood Group.'
-            }]
-          })(
-            <Select placeholder='Please select blood group'>
-              <Option key='A+'>A+</Option>
-              <Option key='A-'>A-</Option>
-              <Option key='B+'>B+</Option>
-              <Option key='B-'>B-</Option>
-              <Option key='AB+'>AB+</Option>
-              <Option key='AB-'>AB-</Option>
-              <Option key='O+'>O+</Option>
-              <Option key='O-'>O-</Option>
-            </Select>
-          )}
-        </FormItem>
-        <FormItem {...formItemLayout} label='Donation Time'>
-          {getFieldDecorator('donationTime', {
-            rules: [{ required: true, message: 'Please input Donation Time' }],
-            initialValue: moment()
-          })(<DatePicker showTime format='MMM/DD/YYYY HH:mm' style={{ width: '100%' }} />)}
-        </FormItem>
-        <FormItem {...tailFormItemLayout}>
-          <Button type='primary' htmlType='submit'>
-            Submit
+          <FormItem {...formItemLayout} label='Blood Group'>
+            {getFieldDecorator('bloodGroup', {
+              rules: [{
+                required: true,
+                message: 'Please select Blood Group.'
+              }]
+            })(
+              <Select placeholder='Please select blood group'>
+                <Option key='A+'>A+</Option>
+                <Option key='A-'>A-</Option>
+                <Option key='B+'>B+</Option>
+                <Option key='B-'>B-</Option>
+                <Option key='AB+'>AB+</Option>
+                <Option key='AB-'>AB-</Option>
+                <Option key='O+'>O+</Option>
+                <Option key='O-'>O-</Option>
+              </Select>
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label='Donation Time'>
+            {getFieldDecorator('donationTime', {
+              rules: [{ required: true, message: 'Please input Donation Time' }],
+              initialValue: moment()
+            })(<DatePicker showTime format='MMM/DD/YYYY HH:mm' style={{ width: '100%' }} />)}
+          </FormItem>
+          <FormItem {...tailFormItemLayout}>
+            <Button type='primary' htmlType='submit'>
+              Submit
           </Button>
-        </FormItem>
-      </Form>
+          </FormItem>
+        </Form>
+      </Spin>
     )
   }
 }

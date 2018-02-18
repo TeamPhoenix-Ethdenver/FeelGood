@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Row, Col, Divider, Radio } from 'antd'
+import { Row, Col, Divider, Radio, Spin } from 'antd'
 import * as moment from 'moment'
+import { decode } from 'mnid'
 
 import Page from '../Page'
 import Stage2Card from './Stage2Card'
+import { uport, login } from '../../uport'
 import * as api from '../../api'
 
 const RadioButton = Radio.Button
@@ -12,7 +14,26 @@ const RadioGroup = Radio.Group
 export default class Stage2 extends Component {
   constructor (props) {
     super(props)
-    this.state = { data: [], hasRole: false, showAll: true }
+    this.state = { data: [], showAll: true, loggedin: false }
+    login().then(userProfile => {
+      const address = decode(userProfile.address).address
+      this.setState({ name: userProfile.name })
+      api.getContract(uport.getProvider()).deployed()
+        .then(i => i.hasRole(address, 'DonationCenter'))
+        .then(res => {
+          if (!res) {
+            window.location.href = '/403'
+          } else {
+            this.setState({ loggedin: true })
+          }
+        }).then(() => {
+          const testReject = donorID => api.getContract(uport.getProvider()).deployed()
+            .then(i => i.isTested(donorID, false, { from: address }))
+          const testApprove = donorID => api.getContract(uport.getProvider()).deployed()
+            .then(i => i.isTested(donorID, true, { from: address }))
+          this.setState({ testReject, testApprove })
+        })
+    })
   }
 
   addStage1 (args) {
@@ -70,7 +91,6 @@ export default class Stage2 extends Component {
   componentDidMount () {
     api.onStage1Event(args => window.setTimeout(() => this.addStage1(args))) // FIXME: ...
     api.onStage2Event(args => window.setTimeout(() => this.addStage2(args)))
-    api.hasRole('TestCenter').then(hasRole => this.setState({ hasRole }))
   }
 
   renderCards () {
@@ -81,32 +101,34 @@ export default class Stage2 extends Component {
       data = this.state.data
     }
     return data.map(one => <Col key={one.donorID} sm={24} md={12} lg={8} xl={6} style={{ marginBottom: 10 }}>
-      <Stage2Card hasRole={this.state.hasRole} {...one} />
+      <Stage2Card {...this.state} {...one} />
     </Col>
     )
   }
 
   render () {
     return (
-      <Page>
-        <div>
-          <Row type='flex' justify='space-between' align='middle'>
-            <Col>
-              <h1>Test Center</h1>
-            </Col>
-            <Col>
-              <RadioGroup onChange={e => this.setState({ showAll: e.target.value === 'All' })} defaultValue='All'>
-                <RadioButton value='All'>All</RadioButton>
-                <RadioButton value='unTested'>unTested</RadioButton>
-              </RadioGroup>
-            </Col>
-          </Row>
-          <Divider style={{ margin: '10px 0' }} />
-          <Row gutter={16}>
-            {this.renderCards()}
-          </Row>
-        </div>
-      </Page >
+      <Spin spinning={!this.state.loggedin}>
+        {this.state.loggedin && <Page name={this.state.name}>
+          <div>
+            <Row type='flex' justify='space-between' align='middle'>
+              <Col>
+                <h1>Test Center</h1>
+              </Col>
+              <Col>
+                <RadioGroup onChange={e => this.setState({ showAll: e.target.value === 'All' })} defaultValue='All'>
+                  <RadioButton value='All'>All</RadioButton>
+                  <RadioButton value='unTested'>unTested</RadioButton>
+                </RadioGroup>
+              </Col>
+            </Row>
+            <Divider style={{ margin: '10px 0' }} />
+            <Row gutter={16} type='flex'>
+              {this.renderCards()}
+            </Row>
+          </div>
+        </Page >}
+      </Spin>
     )
   }
 }
