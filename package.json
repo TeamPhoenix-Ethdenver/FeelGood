@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "antd": "^3.2.1",
+    "gh-pages": "^1.1.0",
     "mnid": "^0.1.1",
     "qrcode.react": "^0.7.2",
     "react": "^16.2.0",
@@ -17,7 +18,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.6.4",
@@ -30,5 +33,7 @@
       "artifacts",
       "sessionStorage"
     ]
-  }
+  },
+  "license": "MIT",
+  "homepage": "http://TeamPhoenix-Ethdenver.github.io/FeelGood"
 }
