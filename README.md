@@ -31,7 +31,7 @@ Every 2 seconds, someone in the US needs blood. Even though, we **DONATE** blood
 
 -This number is miniscule compared to such cases happening in developing countries like India. [ [Science Alert:2000 cases in India](https://www.sciencealert.com/blood-transfusions-have-given-hiv-to-more-than-2-000-people-in-india) ]
 
-#### Most importantly, we are developing a new diverse industry by facilitating blood donation in an accountable and transparent way from developing countries in rare medical conditions such as [ [Haiti gets blood from Italy, South Africa and USA: RedCross](http://www.redcross.org/news/article/Red-Cross-Working-across-Borders-to-Ensure-Haitis-Blood-Supply) ] [ [Blood test/supply internationally between Geneva and Paris](https://www.theatlantic.com/health/archive/2014/10/the-most-precious-blood-on-earth/381911/) ]
+#### Most importantly, we are developing a new diverse industry by facilitating blood donation in an accountable and transparent way from developing countries in rare medical conditions such as [ [Haiti gets blood from Italy, South Africa and USA: RedCross](http://www.redcross.org/news/article/Red-Cross-Working-across-Borders-to-Ensure-Haitis-Blood-Supply) ] [ [Blood test/supply internationally between Geneva and Paris](https://www.theatlantic.com/health/archive/2014/10/the-most-precious-blood-on-earth/381911/) ] [ [Cross european blood transfer](https://www.ncbi.nlm.nih.gov/pubmed/26529138) ]
 
 ### Technologies:
 ```
