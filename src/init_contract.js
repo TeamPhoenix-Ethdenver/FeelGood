@@ -4,6 +4,9 @@ var FeelGood = artifacts.require('./FeelGood.sol')
 const DonationCenterAddr = '0x0d6eafe9Ca0258b97839b07230A7EA8Fa61b632A'
 const TestCenterAddr = '0x0d6eafe9Ca0258b97839b07230A7EA8Fa61b632A'
 const HealthCenterAddr = '0x0d6eafe9Ca0258b97839b07230A7EA8Fa61b632A'
+const DonationCenterAddr2 = '0x824fcdc476f1c85f9fa5f27f8f0c6ce630b7ee74'
+const TestCenterAddr2 = '0x824fcdc476f1c85f9fa5f27f8f0c6ce630b7ee74'
+const HealthCenterAddr2 = '0x824fcdc476f1c85f9fa5f27f8f0c6ce630b7ee74'
 
 module.exports = function (callback) {
   let instance
@@ -15,6 +18,12 @@ module.exports = function (callback) {
       instance.adminAddRole(DonationCenterAddr, 'DonationCenter').then(console.log),
       instance.adminAddRole(TestCenterAddr, 'TestCenter').then(console.log),
       instance.adminAddRole(HealthCenterAddr, 'HealthCenter').then(console.log)
+    ])
+  }).then(() => {
+    return Promise.all([
+      instance.adminAddRole(DonationCenterAddr2, 'DonationCenter').then(console.log),
+      instance.adminAddRole(TestCenterAddr2, 'TestCenter').then(console.log),
+      instance.adminAddRole(HealthCenterAddr2, 'HealthCenter').then(console.log)
     ])
   }).then(() => {
     console.log('adding Alice, Bob, Claire, David')

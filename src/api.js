@@ -51,6 +51,3 @@ export const onStage3Event = callback => FeelGoodForEvent.deployed()
       }
     })
   )
-
-export const consume = donorID => getContract(window.uport.getProvider()).deployed()
-  .then(i => i.isConsumed(donorID, { from: sessionStorage.getItem('address') }))

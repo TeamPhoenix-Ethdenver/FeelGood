@@ -3,7 +3,6 @@ import { Card, List, Tag, Icon, Button, Popconfirm } from 'antd'
 import * as moment from 'moment'
 
 import QRModal from '../QRModal'
-import * as api from '../../api'
 
 const Stage3Card = props => {
   const data = [
@@ -27,7 +26,7 @@ const Stage3Card = props => {
       title={'# ' + props.donorID}
       extra={<QRModal donorID={props.donorID} />}
       actions={!window.parseInt(props.healthCenter) && [
-        <Popconfirm placement='top' title='I confirm to CONSUME and digital signing this confirmation.' onConfirm={() => api.consume(props.donorID)} okText='Consume' cancelText='Cancel'>
+        <Popconfirm placement='top' title='I confirm to CONSUME and digital signing this confirmation.' onConfirm={() => props.consume(props.donorID)} okText='Consume' cancelText='Cancel'>
           <Button type='primary'><Icon type='smile-o' />Consume</Button>
         </Popconfirm>
       ]}

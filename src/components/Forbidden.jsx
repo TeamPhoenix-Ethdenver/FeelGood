@@ -12,7 +12,7 @@ export default class Forbidden extends Component {
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <h1 style={{ marginBottom: 0, fontSize: 46 }}>403</h1>
             <p>You do not have the access to view this page.</p>
-            <Button type='primary' onClick={() => (window.location.href = '/')}>Back to Home</Button>
+            <Button type='primary' onClick={() => (window.location.href = '/FeelGood')}>Back to Home</Button>
           </div>
         </div>
       </Page>

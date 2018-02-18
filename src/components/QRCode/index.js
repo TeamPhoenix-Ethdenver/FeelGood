@@ -37,16 +37,16 @@ const QRCard = props => {
   const actions = []
   if (!window.parseInt(props.donor.testCenter) && props.TestCenter) {
     actions.push(
-      <Popconfirm placement='top' title='I confirm to REJECT and digital signing this confirmation.' onConfirm={() => props.testReject(props.donorID)} okText='Reject' okType='danger' cancelText='Cancel'>
+      <Popconfirm placement='top' title='I confirm to REJECT and digital signing this confirmation.' onConfirm={() => props.testReject(props.donor.donorID)} okText='Reject' okType='danger' cancelText='Cancel'>
         <Button type='danger'><Icon type='close' />Reject</Button>
       </Popconfirm>
     )
-    actions.push(<Popconfirm placement='top' title='I confirm to APPROVE and digital signing this confirmation.' onConfirm={() => props.testApprove(props.donorID)} okText='Approve' cancelText='Cancel'>
+    actions.push(<Popconfirm placement='top' title='I confirm to APPROVE and digital signing this confirmation.' onConfirm={() => props.testApprove(props.donor.donorID)} okText='Approve' cancelText='Cancel'>
       <Button type='primary'><Icon type='check' />Approve</Button>
     </Popconfirm>)
   }
   if (!window.parseInt(props.donor.healthCenter) && props.HealthCenter) {
-    actions.push(<Popconfirm placement='top' title='I confirm to CONSUME and digital signing this confirmation.' onConfirm={() => api.consume(props.donorID)} okText='Consume' cancelText='Cancel'>
+    actions.push(<Popconfirm placement='top' title='I confirm to CONSUME and digital signing this confirmation.' onConfirm={() => props.consume(props.donor.donorID)} okText='Consume' cancelText='Cancel'>
       <Button type='primary'><Icon type='smile-o' />Consume</Button>
     </Popconfirm>)
   }
@@ -70,7 +70,7 @@ const QRCard = props => {
 }
 
 export default class QRCode extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       donor: null,
@@ -126,7 +126,7 @@ export default class QRCode extends Component {
     })
   }
 
-  render () {
+  render() {
     return (
       <Spin style={{ width: '100%', marginTop: 32 }} spinning={!this.state.loggedin}>
         {this.state.loggedin && <Page>
