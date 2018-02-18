@@ -45,7 +45,7 @@ const QRCard = props => {
       <Button type='primary'><Icon type='check' />Approve</Button>
     </Popconfirm>)
   }
-  if (!window.parseInt(props.donor.healthCenter) && props.HealthCenter) {
+  if (window.parseInt(props.donor.testCenter) && !window.parseInt(props.donor.healthCenter) && props.HealthCenter) {
     actions.push(<Popconfirm placement='top' title='I confirm to CONSUME and digital signing this confirmation.' onConfirm={() => props.consume(props.donor.donorID)} okText='Consume' cancelText='Cancel'>
       <Button type='primary'><Icon type='smile-o' />Consume</Button>
     </Popconfirm>)
