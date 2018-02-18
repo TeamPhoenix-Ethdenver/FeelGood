@@ -3,7 +3,7 @@ import TruffleContract from 'truffle-contract'
 import JSONData from './build/contracts/FeelGood.json'
 
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://482beaba.ngrok.io'))
-const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+const web3 = new Web3(new Web3.providers.HttpProvider('http://3cbfb182.ngrok.io'))
 // const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:9545'))
 window.web3 = web3
 const FeelGood = TruffleContract(JSONData)

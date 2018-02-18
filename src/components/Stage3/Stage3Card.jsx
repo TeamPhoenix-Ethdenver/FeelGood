@@ -6,7 +6,6 @@ import QRModal from '../QRModal'
 import * as api from '../../api'
 
 const Stage3Card = props => {
-  console.log(props)
   const data = [
     { title: 'Donation Center', description: props.donationCenter },
     { title: 'Name', description: props.nameOfDonor },

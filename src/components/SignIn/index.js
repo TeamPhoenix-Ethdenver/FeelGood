@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Connect, SimpleSigner } from 'uport-connect'
-import Key from '../../key.json'
 import { decode } from 'mnid'
 // import Web3 from 'web3'
+
+import Key from '../../key.json'
 
 export default class SignIn extends Component {
   constructor ({ location }) {
