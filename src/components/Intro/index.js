@@ -75,6 +75,29 @@ export default class Intro extends Component {
               <li>Traceable</li>
               <li>Blood bank system</li>
             </ul>
+            <div className='icons animated fadeInUp'>
+              <a className='icon' href='/stage-1'>
+                <i className='fas fa-ambulance' />
+              </a>
+              <div className='icon'>
+                <i className='fas fa-caret-right' />
+              </div>
+              <a className='icon' href='/stage-2'>
+                <i className='fas fa-hospital' />
+              </a>
+              <div className='icon'>
+                <i className='fas fa-caret-right' />
+              </div>
+              <a className='icon' href='/stage-3'>
+                <i className='fas fa-medkit' />
+              </a>
+              {/* <div className='icon'>
+                <i className='fas fa-caret-right' />
+              </div>
+              <div className='icon'>
+                <i className='far fa-smile' />
+              </div> */}
+            </div>
             <div />
           </div>
         </section>
@@ -87,7 +110,7 @@ export default class Intro extends Component {
             </div>
             <div className='text'>
               <h2>$ 4.5 billion</h2>
-              <div>The blood donation industry makes upto $ 4.5 billion annually in the United States of America.</div>
+              <div>The blood donation industry makes up to $ 4.5 billion annually in the United States of America.</div>
             </div>
           </div>
           <div>

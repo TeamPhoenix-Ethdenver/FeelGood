@@ -101,10 +101,30 @@
     font-family: Garamond
   }
   
+  .section1 .icons {
+    margin-top: 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    .icon {
+      margin: 20px;
+      border-radius: 50%;
+    }
+    .icon:nth-child(odd) {
+      width: 96px;
+      height: 96px;
+      line-height: 96px;
+      background: white;
+      color: rgb(100,149,237);
+      font-size: 48px;
+      display: inline-block;
+    }
+  }
+  
   .section2 > div {
     flex-direction: row;
     flex: 1;
-
   }
   .section2 > div:nth-child(even) {
     flex-direction: row-reverse;
