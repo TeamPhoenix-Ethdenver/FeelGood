@@ -10,26 +10,26 @@ import QRCode from './components/QRCode'
 import Forbidden from './components/Forbidden'
 
 export default class App extends Component {
-  render() {
+  render () {
     return (
       <Router>
         <div>
-          <Route exact path='/FeelGood' component={Intro} />
-          <Route exact path='/FeelGood/page' component={Page} />
-          <Route exact path='/FeelGood/403' component={Forbidden} />
-          <Route path='/FeelGood/qrcode/:id' component={QRCode} />
-          <Route exact path='/FeelGood/stage-1' render={props => <Redirect
-            to={{ pathname: '/FeelGood/donation-center' }}
+          <Route exact path='/' component={Intro} />
+          <Route exact path='/page' component={Page} />
+          <Route exact path='/403' component={Forbidden} />
+          <Route path='/qrcode/:id' component={QRCode} />
+          <Route exact path='/stage-1' render={props => <Redirect
+            to={{ pathname: '/donation-center' }}
           />} />
-          <Route path='/FeelGood/donation-center' component={Stage1} />
-          <Route exact path='/FeelGood/stage-2' render={props => <Redirect
-            to={{ pathname: '/FeelGood/test-center' }}
+          <Route path='/donation-center' component={Stage1} />
+          <Route exact path='/stage-2' render={props => <Redirect
+            to={{ pathname: '/test-center' }}
           />} />
-          <Route path='/FeelGood/test-center' component={Stage2} />
-          <Route exact path='/FeelGood/stage-3' render={props => <Redirect
-            to={{ pathname: '/FeelGood/health-center' }}
+          <Route path='/test-center' component={Stage2} />
+          <Route exact path='/stage-3' render={props => <Redirect
+            to={{ pathname: '/health-center' }}
           />} />
-          <Route path='/FeelGood/health-center' component={Stage3} />
+          <Route path='/health-center' component={Stage3} />
         </div>
       </Router >
     )

@@ -3,7 +3,8 @@ import TruffleContract from 'truffle-contract'
 import JSONData from './build/contracts/FeelGood.json'
 
 // const web3ForEvent = new Web3(new Web3.providers.HttpProvider('https://5edad685.ngrok.io'))
-const uri = window.prompt('Provider?')
+// const uri = window.prompt('Provider?')
+const uri = 'http://localhost:8545'
 const web3ForEvent = new Web3(new Web3.providers.HttpProvider(uri))
 window.web3ForEvent = web3ForEvent
 
