@@ -2,8 +2,8 @@ import Web3 from 'web3'
 import TruffleContract from 'truffle-contract'
 import JSONData from './build/contracts/FeelGood.json'
 
-// const web3ForEvent = new Web3(new Web3.providers.HttpProvider('http://3cbfb182.ngrok.io'))
-const web3ForEvent = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+const web3ForEvent = new Web3(new Web3.providers.HttpProvider('https://5edad685.ngrok.io'))
+// const web3ForEvent = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
 window.web3ForEvent = web3ForEvent
 
 export const getContract = provider => {
@@ -24,9 +24,6 @@ export const getContract = provider => {
 const FeelGoodForEvent = getContract(web3ForEvent.currentProvider)
 
 export const getByID = id => FeelGoodForEvent.deployed().then(i => i.donors(id))
-
-// export const hasRole = role => FeelGoodForEvent.deployed()
-//   .then(i => i.hasRole(sessionStorage.getItem('address'), role))
 
 export const onStage1Event = callback => FeelGoodForEvent.deployed()
   .then(i => i.DonorCreatedEvent({}, { fromBlock: 0, toBlock: 'latest' })

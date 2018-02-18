@@ -16,7 +16,7 @@ export default class QRCodeModal extends Component {
           <Icon type='qrcode' />
         </a>
         <Modal
-          title={<a href={uri}>{'# ' + this.props.donorID}</a>}
+          title={'# ' + this.props.donorID}
           visible={this.state.visible}
           onCancel={() => this.setState({ visible: false })}
           footer={null}
