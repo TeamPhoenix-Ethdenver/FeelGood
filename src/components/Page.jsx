@@ -47,7 +47,7 @@ export default class Page extends Component {
           </Content>
         </Content>
         <Footer style={{ textAlign: 'center', backgroundColor: 'rgba(0, 96, 255, 0.6)', color: 'white', padding: 10 }}>
-          Built With Love @ ETHDenver
+          Built With Love
           <br />
           <small>Copyright © Team Phoenix</small>
         </Footer>

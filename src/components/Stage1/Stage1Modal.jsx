@@ -33,7 +33,7 @@ class Stage1FormComponent extends Component {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.newStage1(values.name, values.age, values.sex, values.bloodGroup, values.donationTime.unix())
+        this.props.newStage1(values.name, values.age, values.sex, values.bloodGroup, values.donationTime.toDate().getTime())
           .then(() => {
             message.success('Submitted.')
             this.setState({ spinning: false })

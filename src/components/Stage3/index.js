@@ -121,7 +121,7 @@ export default class Stage3 extends Component {
     }
     return data.map(one => <Col key={one.donorID} sm={24} md={12} lg={8} xl={6} style={{ marginBottom: 10 }}>
       <Spin spinning={this.state.spinnings[one.donorID]}>
-        <Stage3Card {...one} />
+        <Stage3Card {...one} consume={this.state.consume} />
       </Spin>
     </Col>
     )
