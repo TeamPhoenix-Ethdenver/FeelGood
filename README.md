@@ -1,5 +1,7 @@
  # FeelGood
 
+*Update- FeelGood project became the winner for Ethdenver hackathon.
+
  (Built with love by @Team Phoenix at EthDenver hackathon 2018)
  
  
